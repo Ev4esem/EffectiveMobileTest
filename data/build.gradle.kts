@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(libs.koin.android)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.gsonConverter)
     implementation(libs.androidx.core.ktx)

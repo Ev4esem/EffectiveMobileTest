@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="continue_button">Продолжить</string>
+    <string name="title_splash_screen">Тысячи курсов\nв одном месте</string>
+    <string name="description_main_screen">Подробнее</string>
+    <string name="currency_main_screen"> ₽</string>
+    <string name="search_hint_main_screen">Search courses…</string>
+    <string name="error_message_main_screen">Что то пошло не так, ошибка: %s</string>
+
+
+</resources>

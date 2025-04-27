@@ -1,18 +1,24 @@
 package com.dagteam.data.repository
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.dagteam.data.network.CourseApi
 import com.dagteam.domain.models.Course
+import com.dagteam.domain.models.SortedType
 import com.dagteam.domain.repositories.CourseRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
-class CourseRepositoryImpl(
-    private val courseApi: CourseApi,
-): CourseRepository {
+class CourseRepositoryImpl : CourseRepository, KoinComponent {
 
     private val _courses = mutableListOf<Course>()
     private var lastUpdated: Long = 0
     private val cacheExpirationTime = 30 * 60 * 1000
+    private val courseApi by inject<CourseApi>()
 
     override fun getCourses(): Flow<List<Course>> {
         return flow {
@@ -43,5 +49,24 @@ class CourseRepositoryImpl(
 
     override suspend fun getCourseById(id: Int): Course? {
         return _courses.find { it.id == id }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override suspend fun sortedCourses(sortedType: SortedType): List<Course> {
+        val sortedList = when(sortedType) {
+            SortedType.DESCENDING_ORDER -> {
+                _courses.sortedByDescending { it.publishDate.toLocalDate() }
+            }
+            SortedType.ADDING -> {
+                _courses.sortedBy { it.publishDate.toLocalDate() }
+            }
+        }
+        return sortedList
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun String.toLocalDate(): LocalDate {
+        val formatter = DateTimeFormatter.ofPattern("d MMM yyyy")
+        return LocalDate.parse(this, formatter)
     }
 }

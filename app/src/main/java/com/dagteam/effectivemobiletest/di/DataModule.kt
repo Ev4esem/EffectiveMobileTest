@@ -15,7 +15,7 @@ fun createNoteApi(): CourseApi = createRetrofit().create(CourseApi::class.java)
 
 fun createRetrofit(): Retrofit {
     return Retrofit.Builder()
-        .baseUrl("https://drive.usercontent.google.com/u/0/")
+        .baseUrl("https://drive.usercontent.google.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 }
