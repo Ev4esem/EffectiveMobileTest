@@ -6,6 +6,14 @@
     <string name="currency_main_screen"> ₽</string>
     <string name="search_hint_main_screen">Search courses…</string>
     <string name="error_message_main_screen">Что то пошло не так, ошибка: %s</string>
-
+    <string name="title_favourite_screen">Избранное</string>
+    <string name="bottom_nav_bar_main">Главная</string>
+    <string name="bottom_nav_bar_favourite">Избранное</string>
+    <string name="bottom_nav_bar_account">Аккаунт</string>
+    <string name="auth_screen_signin">Войти</string>
+    <string name="auth_screen_password_title">Пароль</string>
+    <string name="auth_screen_password_hint">Введите пароль</string>
+    <string name="auth_screen_email_title">Email</string>
+    <string name="auth_screen_email_hint">example@gmail.com</string>
 
 </resources>

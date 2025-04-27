@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.dagteam.domain.models.Course
 import com.dagteam.main_impl.impl.mvi.MainIntent
+import com.dagteam.presentation.composable.CourseItem
 
 @Composable
 fun CourseList(
@@ -26,7 +27,9 @@ fun CourseList(
         ) {
             CourseItem(
                 course = it,
-                onIntent = onIntent,
+                onClickFavourite = {
+                    onIntent(MainIntent.ChangeFavouriteStatus(it.id))
+                },
             )
         }
     }

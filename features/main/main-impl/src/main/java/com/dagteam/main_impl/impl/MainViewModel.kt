@@ -8,9 +8,8 @@ import com.dagteam.domain.use_cases.GetCoursesUseCase
 import com.dagteam.domain.use_cases.SortedCoursesUseCase
 import com.dagteam.main_impl.impl.mvi.MainIntent
 import com.dagteam.main_impl.impl.mvi.MainUiState
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -52,26 +51,23 @@ class MainViewModel(
 
     private fun init() {
         viewModelScope.launch {
+            _uiState.update { it.copy(loading = true, error = null) }
+
             getCoursesUseCase()
-                .onEach {
-                    _uiState.update { currentState ->
-                        currentState.copy(
-                            loading = true,
-                        )
-                    }
-                }
-                .catch {
-                    _uiState.update { currentState ->
-                        currentState.copy(
+                .catch { error ->
+                    _uiState.update {
+                        it.copy(
                             loading = false,
-                            error = it.message
+                            error = error.message
                         )
                     }
                 }
                 .collect { courses ->
-                    _uiState.update { currentState ->
-                        currentState.copy(
+                    _uiState.update {
+                        it.copy(
                             courses = courses,
+                            loading = false,
+                            error = null
                         )
                     }
                 }

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -43,7 +44,17 @@ dependencies {
 
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":main-impl"))
+    implementation(project(":main-api"))
+    implementation(project(":favourite-impl"))
+    implementation(project(":favourite-api"))
+    implementation(project(":splash-api"))
+    implementation(project(":splash-impl"))
+    implementation(project(":auth-impl"))
+    implementation(project(":auth-api"))
 
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

@@ -1,6 +1,7 @@
 package com.dagteam.splash_impl.impl
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,7 +37,8 @@ fun SplashScreen(
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
     ) {
         Column(
@@ -76,7 +79,8 @@ fun SplashScreen(
             },
             content = {
                 Text(
-                    text = stringResource(Resource.string.continue_button)
+                    text = stringResource(Resource.string.continue_button),
+                    color = Color.White,
                 )
             }
         )

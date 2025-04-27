@@ -8,6 +8,5 @@ interface SplashPresentationApi {
     fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
         navController: NavHostController,
-        onBack: () -> Unit
     )
 }

@@ -7,6 +7,5 @@ interface MainPresentationApi {
     fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
         navController: NavHostController,
-        onBack: () -> Unit
     )
 }

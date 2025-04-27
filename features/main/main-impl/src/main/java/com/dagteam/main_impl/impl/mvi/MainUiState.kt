@@ -5,7 +5,7 @@ import com.dagteam.domain.models.SortedType
 
 data class MainUiState(
     val courses: List<Course> = emptyList(),
-    val loading: Boolean = false,
+    val loading: Boolean = true,
     val currentSortedType: SortedType = SortedType.ADDING,
     val error: String? = null,
 )

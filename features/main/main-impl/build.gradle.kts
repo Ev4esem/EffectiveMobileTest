@@ -37,7 +37,9 @@ dependencies {
     implementation(project(":resources"))
     implementation(project(":main-api"))
     implementation(project(":domain"))
+    implementation(project(":presentation"))
 
+    implementation(libs.koin.compose)
     implementation(libs.navigation.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)

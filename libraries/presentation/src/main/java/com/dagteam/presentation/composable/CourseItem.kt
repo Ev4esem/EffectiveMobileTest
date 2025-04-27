@@ -1,4 +1,4 @@
-package com.dagteam.main_impl.impl.composable
+package com.dagteam.presentation.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -30,18 +30,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dagteam.domain.models.Course
-import com.dagteam.main_impl.impl.mvi.MainIntent
 import com.dagteam.resources.R as Resources
 
 @Composable
 fun CourseItem(
     course: Course,
-    onIntent: (MainIntent) -> Unit,
+    onClickFavourite: () -> Unit,
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(235.dp),
+            .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFF24252A)
@@ -104,9 +102,7 @@ fun CourseItem(
                         colors = IconButtonDefaults.iconButtonColors(
                             containerColor = Color(0xFF32333A).copy(alpha = 0.3F),
                         ),
-                        onClick = {
-                            onIntent(MainIntent.ChangeFavouriteStatus(course.id))
-                        }
+                        onClick = onClickFavourite
                     ) {
                         Icon(
                             painter = painterResource(
@@ -145,7 +141,7 @@ fun CourseItem(
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(
-                        text = course.price + stringResource(Resources.string.currency_main_screen),
+                        text = course.price + " " + stringResource(Resources.string.currency_main_screen),
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,
                         color = Color.White,

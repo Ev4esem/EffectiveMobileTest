@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/features/main/main-impl" />
             <option value="$PROJECT_DIR$/features/splash/splash-api" />
             <option value="$PROJECT_DIR$/features/splash/splash-impl" />
+            <option value="$PROJECT_DIR$/libraries/presentation" />
             <option value="$PROJECT_DIR$/libraries/resources" />
           </set>
         </option>

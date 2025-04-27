@@ -7,5 +7,5 @@ class SortedCoursesUseCase(
     private val repository: CourseRepository
 ) {
     suspend operator fun invoke(sortedType: SortedType) =
-        repository.sortedCourses(sortedType)
+        repository.getSortedCourses(sortedType)
 }

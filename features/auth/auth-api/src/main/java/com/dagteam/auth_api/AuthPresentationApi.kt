@@ -7,6 +7,5 @@ interface AuthPresentationApi {
     fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
         navController: NavHostController,
-        onBack: () -> Unit
     )
 }

@@ -1,7 +1,5 @@
 package com.dagteam.auth_impl.impl
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,20 +12,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.dagteam.auth_impl.impl.mvi.AuthIntent
 import com.dagteam.auth_impl.impl.mvi.AuthUiState
+import com.dagteam.resources.R as Resources
 
 @Composable
 fun AuthScreen(
@@ -72,8 +76,8 @@ fun AuthScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 TextInputBasic(
-                    title = "Email",
-                    hint = "example@gmail.com",
+                    title = stringResource(Resources.string.auth_screen_email_title),
+                    hint = stringResource(Resources.string.auth_screen_email_hint),
                     value = uiState.user.email,
                     onChanged = {
                         onIntent(AuthIntent.ChangeEmail(it))
@@ -81,8 +85,8 @@ fun AuthScreen(
                     keyboardType = KeyboardType.Email,
                 )
                 TextInputBasic(
-                    title = "Пароль",
-                    hint = "Введите пароль",
+                    title = stringResource(Resources.string.auth_screen_password_title),
+                    hint = stringResource(Resources.string.auth_screen_password_hint),
                     value = uiState.user.password,
                     onChanged = {
                         onIntent(AuthIntent.ChangePassword(it))
@@ -104,7 +108,7 @@ fun AuthScreen(
                 },
                 content = {
                     Text(
-                        text = "Войти",
+                        text = stringResource(Resources.string.auth_screen_signin),
                         color = Color.White
                     )
                 }
@@ -134,6 +138,7 @@ fun AuthScreen(
                 HorizontalDivider(modifier = Modifier.padding(vertical = 32.dp))
     
                 Row(
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Button(
@@ -141,10 +146,11 @@ fun AuthScreen(
                             onIntent(AuthIntent.PressedVK)
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4C75A3)),
-                        modifier = Modifier.width(150.dp)
+                        modifier = Modifier.weight(1f)
                     ) {
                         Icon(
                             painter = painterResource(com.dagteam.resources.R.drawable.ic_vk),
+                            tint = Color.White,
                             contentDescription = null
                         )
                     }
@@ -154,23 +160,17 @@ fun AuthScreen(
                             onIntent(AuthIntent.PressedOK)
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF8C00)),
-                        modifier = Modifier.width(150.dp)
+                        modifier = Modifier.weight(1f)
                     ) {
                         Icon(
                             painter = painterResource(com.dagteam.resources.R.drawable.ic_ok),
+                            tint = Color.White,
                             contentDescription = null
                         )
                     }
                 }
             }
         }
-}
-
-@Composable
-fun OpenSocialMedia(url: String) {
-    val context = LocalContext.current
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-    context.startActivity(intent)
 }
 
 @Composable
@@ -189,25 +189,30 @@ fun TextInputBasic(
             color = Color(0xFFF2F2F3),
         )
         Spacer(modifier = Modifier.height(8.dp))
+        var isFocused by remember { mutableStateOf(false) }
         BasicTextField(
             value = value,
             onValueChange = onChanged,
-            decorationBox = {
-                Text(
-                   text = hint,
-                   color = Color(0xFFF2F2F3),
-                )
+            decorationBox = { innerTextField ->
+                if(value.isEmpty() && !isFocused) {
+                    Text(
+                        text = hint,
+                        color = Color(0xFFF2F2F3),
+                    )
+                }
+                innerTextField()
             },
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = keyboardType
             ),
-            keyboardActions = KeyboardActions.Default,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(40.dp)
                 .clip(RoundedCornerShape(30.dp))
                 .background(Color(0xFF32333A))
-                .padding(10.dp),
+                .padding(10.dp)
+                .onFocusChanged { focusState ->
+                    isFocused = focusState.isFocused
+                },
         )
     }
 

@@ -1,6 +1,5 @@
 package com.dagteam.splash_impl.api
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -21,12 +20,10 @@ class SplashPresentationApiImpl: SplashPresentationApi {
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
         navController: NavHostController,
-        onBack: () -> Unit
     ) {
         navGraphBuilder.composable<SplashPresentationLauncher> {
             val viewModel: SplashViewModel = viewModel()
             val coroutineScope = rememberCoroutineScope()
-            BackHandler(onBack = onBack)
             DisposableEffect(Unit) {
                 val newsJob = viewModel.news
                     .onEach { news ->

@@ -1,4 +1,4 @@
-package com.dagteam.main_impl.impl.composable
+package com.dagteam.presentation.composable
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

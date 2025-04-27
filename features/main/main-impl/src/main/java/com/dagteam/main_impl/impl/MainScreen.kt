@@ -10,12 +10,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dagteam.domain.models.Course
 import com.dagteam.main_impl.impl.composable.CourseList
-import com.dagteam.main_impl.impl.composable.ErrorScreen
 import com.dagteam.main_impl.impl.composable.Filter
-import com.dagteam.main_impl.impl.composable.LoadingScreen
 import com.dagteam.main_impl.impl.composable.Search
 import com.dagteam.main_impl.impl.mvi.MainIntent
 import com.dagteam.main_impl.impl.mvi.MainUiState
+import com.dagteam.presentation.composable.ErrorScreen
+import com.dagteam.presentation.composable.LoadingScreen
 
 @Composable
 fun MainScreen(
@@ -30,16 +30,14 @@ fun MainScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp),
         ) {
             Search()
-
             Filter(
                 modifier = Modifier.align(Alignment.End),
                 currentSortedType = uiState.currentSortedType,
                 onIntent = onIntent,
             )
-
             CourseList(
                 courses = uiState.courses,
                 onIntent = onIntent,

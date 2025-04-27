@@ -10,8 +10,6 @@ interface CourseRepository {
 
     suspend fun changeFavouriteStatus(id: Int)
 
-    suspend fun getCourseById(id: Int): Course?
-
-    suspend fun sortedCourses(sortedType: SortedType): List<Course>
+    suspend fun getSortedCourses(sortedType: SortedType): List<Course>
 
 }
